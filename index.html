@@ -28,6 +28,10 @@ a{text-decoration:none;color:inherit}
 header{
   border-bottom:1px solid #eee;
   padding:15px 0;
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:99;
 }
 .header-flex{
   display:flex;
@@ -57,21 +61,25 @@ header{
 }
 .hero img{
   width:100%;
-  border-radius:8px;
+  border-radius:10px;
+  animation:fadeUp 1s ease;
 }
 .hero h1{
   font-size:36px;
   margin-bottom:10px;
+  animation:fadeUp 0.8s ease;
 }
 .hero p{
   font-size:17px;
   margin-bottom:20px;
+  animation:fadeUp 1s ease;
 }
 .price-box{
   background:#f8f8f8;
   padding:15px;
   border-left:4px solid #b59b3a;
   margin-bottom:20px;
+  animation:fadeUp 1.2s ease;
 }
 .btn{
   display:inline-block;
@@ -79,7 +87,9 @@ header{
   background:#b59b3a;
   color:#fff;
   border-radius:4px;
+  transition:0.3s;
 }
+.btn:hover{opacity:0.85}
 
 /* SECTIONS */
 section{padding:70px 0}
@@ -101,6 +111,7 @@ section{padding:70px 0}
   padding:25px;
   border-radius:6px;
   text-align:center;
+  animation:fadeUp 1s ease;
 }
 .card img{
   width:100%;
@@ -115,15 +126,17 @@ section{padding:70px 0}
   border:1px solid #eee;
   padding:30px;
   border-radius:6px;
+  animation:fadeUp 1s ease;
 }
 .form-box input,
 .form-box button{
   width:100%;
   padding:12px;
   margin-bottom:15px;
+  font-size:14px;
 }
 .form-box button{
-  background:#b59b3a;
+  background:#25D366;
   color:#fff;
   border:none;
   cursor:pointer;
@@ -140,13 +153,17 @@ footer{
   grid-template-columns:1fr 1fr 1fr;
   gap:30px;
 }
-footer h4{margin-bottom:10px}
-footer a{color:#000}
 .legal{
   text-align:center;
   margin-top:30px;
   font-size:13px;
   color:#555;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 @media(max-width:768px){
@@ -159,7 +176,6 @@ footer a{color:#000}
 
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="container header-flex">
     <div class="logo">TrichoHom</div>
@@ -198,11 +214,11 @@ footer a{color:#000}
       <div class="card">
         <img src="skin.jpg" alt="Skin wellness">
         <h4>Skin Wellness Support</h4>
-        <p>Supports natural skin glow and vitality under medical supervision.</p>
+        <p>Supports natural skin glow & vitality under medical supervision.</p>
       </div>
 
       <div class="card">
-        <img src="clinic.jpg" alt="Premium clinic">
+        <img src="clinic.jpg" alt="Clinic interior">
         <h4>Premium Clinic</h4>
         <p>Clean, modern and hygienic medical environment.</p>
       </div>
@@ -216,21 +232,6 @@ footer a{color:#000}
   </div>
 </section>
 
-<!-- ABOUT -->
-<section style="background:#fafafa;">
-  <div class="container">
-    <div class="section-title">
-      <h2>About the Therapy</h2>
-    </div>
-
-    <p style="max-width:800px;margin:auto;text-align:center;">
-      Glutathione and Vitamin C are antioxidants that help protect the body from
-      oxidative stress and support overall wellness. IV therapy is recommended
-      only after doctor evaluation. Results may vary from person to person.
-    </p>
-  </div>
-</section>
-
 <!-- FORM -->
 <section id="consultation">
   <div class="container">
@@ -239,15 +240,15 @@ footer a{color:#000}
     </div>
 
     <div class="form-box">
-      <form>
-        <input type="text" placeholder="Full Name" required>
-        <input type="tel" placeholder="Phone Number" required>
-        <input type="email" placeholder="Email (optional)">
-        <button type="submit">Request Callback</button>
+      <form onsubmit="sendWhatsApp(); return false;">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="email" id="email" placeholder="Email (optional)">
+        <button type="submit">Send on WhatsApp</button>
       </form>
 
       <p style="font-size:12px;color:#666;text-align:center;">
-        * Consultation does not guarantee treatment. Final decision is taken by doctor.
+        * Consultation does not guarantee treatment. Final decision taken by doctor.
       </p>
     </div>
   </div>
@@ -286,6 +287,24 @@ footer a{color:#000}
     <a href="privacy-policy.html">Privacy Policy</a>
   </div>
 </footer>
+
+<!-- WHATSAPP SCRIPT -->
+<script>
+function sendWhatsApp(){
+  var name = document.getElementById("name").value;
+  var phone = document.getElementById("phone").value;
+  var email = document.getElementById("email").value;
+
+  var text =
+    "New Glutathione IV Consultation:%0A" +
+    "Name: " + name + "%0A" +
+    "Phone: " + phone + "%0A" +
+    "Email: " + email;
+
+  var url = "https://wa.me/917069374599?text=" + text;
+  window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
